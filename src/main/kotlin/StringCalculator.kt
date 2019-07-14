@@ -4,10 +4,14 @@ import java.lang.IllegalArgumentException
 
 class StringCalculator {
 
-    private val delimiters = mutableListOf(",", "\n")
+    private val delimiters = mutableListOf<String>()
 
     fun add(numbers: String): Int {
         if (numbers.isEmpty()) return 0
+
+        delimiters.clear()
+        delimiters.add(",")
+        delimiters.add("\n")
 
         return numbers
             .extractDelimiter()
