@@ -43,5 +43,10 @@ class StringCalculatorTests {
     fun `negative number will throw an exception 'negatives not allowed' and the negative that was passed` () {
         calculator.add("//;\n-1;2")
     }
-}
 
+    @Test fun `numbers bigger than 1000 should be ignored` () {
+        assertEquals(2, calculator.add("1002,2"))
+        assertEquals(0, calculator.add("1002,10010"))
+        assertEquals(1001, calculator.add("1000,10010,1"))
+    }
+}
