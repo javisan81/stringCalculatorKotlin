@@ -1,32 +1,21 @@
 package com.sonalsatpute.stringcalculator
 
-import java.lang.IllegalArgumentException
+class StringCalculator(private val bigNumber: Int?) {
 
+    fun add(input: String): Int {
+        if (input.isEmpty()) return 0
 
-class StringCalculator {
-
-    private val BIG_NUMBER = 1000
-    private val DELIMITER_MARKER = "//"
-    private val delimiters = mutableListOf<String>()
-
-    fun add(numbers: String): Int {
-        if (numbers.isEmpty()) return 0
-
-        delimiters.clear()
-        delimiters.add("\n")
-        delimiters.add(",")
-
-        return numbers
-            .extractDelimiter()
-            .toNumbers()
-            .handleNegatives()
-            .removeNumbersGreaterThan(BIG_NUMBER)
-            .sum()
+        return input.toInput().run {
+            inputString.toNumbers(delimiterString)
+                .handleNegatives()
+                .removeNumbersGreaterThanBigNumber()
+                .sum()
+        }
     }
 
-    private fun List<Int>.removeNumbersGreaterThan(number: Int): List<Int> {
-        return this.filter { it <= number }
-    }
+    private fun List<Int>.removeNumbersGreaterThanBigNumber() =
+        if (bigNumber != null) this.filter { it <= bigNumber } else this
+
 
     private fun List<Int>.handleNegatives() : List<Int> {
         val negativeNumbers = this.filter { it < 0 }
@@ -36,24 +25,23 @@ class StringCalculator {
         throw IllegalArgumentException("Negative numbers not allowed " + negativeNumbers.joinToString(separator = ","))
     }
 
-    private fun String.toNumbers() : List<Int> {
-        return this.split(*delimiters.toTypedArray())
-            .map(String::toInt)
+    private fun String.toNumbers(delimiterString: String?) : List<Int> {
+        val delimiters = mutableListOf(",", "\n")
+        delimiterString?.let { delimiters.add(delimiterString) }
+
+        return this.split(*delimiters.toTypedArray()).map(String::toInt)
     }
 
-    private fun String.extractDelimiter() : String {
-        return if (hasDelimiter()) {
-            delimiters.add(getDelimiter())
-            removeDelimiterLine()
-        } else
-            this
+    private fun String.toInput() : Input {
+        val inputStringPattern = "^//(.*)\n(.*)"
+        val delimiterMather = Regex(inputStringPattern)
+
+        delimiterMather.find(this)?.run {
+            val (delimiterString, inputString) = destructured
+
+            return Input(delimiterString, inputString)
+        }
+
+        return Input(null, this)
     }
-
-    private fun String.getDelimiter() = this.substring(DELIMITER_MARKER.length, DELIMITER_MARKER.length + 1)
-
-    private fun String.removeDelimiterLine() = this.substring(4)
-
-    private fun String.hasDelimiter() = this.startsWith(DELIMITER_MARKER)
 }
-
-

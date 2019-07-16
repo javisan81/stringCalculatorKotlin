@@ -5,15 +5,14 @@ import org.junit.Test
 
 class StringCalculatorTests {
 
-    private val calculator = StringCalculator()
+    private val calculator = StringCalculator(1000)
 
     @Test fun `empty string should return zero`() {
         assertEquals(0, calculator.add(""))
     }
 
     @Test fun `single number should return number` () {
-        val sum = calculator.add("1")
-        assertEquals(1, sum)
+        assertEquals(1, calculator.add("1"))
     }
 
     @Test fun `input two numbers delimited by comma should return sum` () {
