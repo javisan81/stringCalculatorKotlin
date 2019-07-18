@@ -26,9 +26,7 @@ class StringCalculator(private val bigNumber: Int?) {
     }
 
     private fun String.toNumbers(delimiterString: String?) : List<Int> {
-        val delimiters = mutableListOf(",", "\n")
-        delimiterString?.let { delimiters.add(delimiterString) }
-
+        val delimiters = listOfNotNull(",", "\n", delimiterString)
         return this.split(*delimiters.toTypedArray()).map(String::toInt)
     }
 
