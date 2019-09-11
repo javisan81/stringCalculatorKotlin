@@ -10,11 +10,13 @@ class StringCalculatorTests {
     private val calculator = StringCalculator(1000)
 
     @Test fun `empty string should return zero`() {
-        assertEquals(0, calculator.add(""))
+        val result = calculator.add("").expectSuccess()
+        assertEquals(0, result)
     }
 
     @Test fun `single number should return number` () {
-        assertEquals(1, calculator.add("1"))
+        val result = calculator.add("1").expectSuccess()
+        assertEquals(1, result)
     }
 
     @Test fun `input two numbers delimited by comma should return sum` () {

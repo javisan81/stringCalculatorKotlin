@@ -1,16 +1,21 @@
 package com.sonalsatpute.stringcalculator
 
+import java.lang.Exception
+
 class StringCalculator(private val bigNumber: Int?) {
 
-    fun add(input: String): Int {
-        if (input.isEmpty()) return 0
+    fun add(input: String): Result<Exception ,Int> {
+        if (input.isEmpty()) return Success(0)
 
-        return input.toInput().run {
-            inputString.toNumbers(delimiterString)
-                .handleNegatives()
-                .removeNumbersGreaterThanBigNumber()
-                .sum()
-        }
+        return Success(Integer.parseInt(input))
+
+
+//        return input.toInput().run {
+//            inputString.toNumbers(delimiterString)
+//                .handleNegatives()
+//                .removeNumbersGreaterThanBigNumber()
+//                .sum()
+//        }
     }
 
     private fun List<Int>.removeNumbersGreaterThanBigNumber() =
