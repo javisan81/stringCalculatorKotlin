@@ -1,4 +1,4 @@
-package com.sonalsatpute.stringcalculator
+package com.sonalsatpute.stringcalculator.fp
 
 sealed class Result<out F, out S>
 

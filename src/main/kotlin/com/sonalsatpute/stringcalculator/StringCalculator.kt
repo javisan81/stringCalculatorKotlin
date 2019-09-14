@@ -1,5 +1,9 @@
 package com.sonalsatpute.stringcalculator
 
+import com.sonalsatpute.stringcalculator.fp.Failure
+import com.sonalsatpute.stringcalculator.fp.Result
+import com.sonalsatpute.stringcalculator.fp.Success
+
 
 class StringCalculator(private val bigNumber: Int?) {
 
@@ -31,7 +35,13 @@ class StringCalculator(private val bigNumber: Int?) {
         if (negativeNumbers.isEmpty()) {
             return Success(this)
         }
-        return Failure(IllegalArgumentException("Negative numbers not allowed " + negativeNumbers.joinToString(separator = ",")))
+        return Failure(
+            IllegalArgumentException(
+                "Negative numbers not allowed " + negativeNumbers.joinToString(
+                    separator = ","
+                )
+            )
+        )
     }
 
     private fun List<Int>.removeNumbersGreaterThanBigNumber() =

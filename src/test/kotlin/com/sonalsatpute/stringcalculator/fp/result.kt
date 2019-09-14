@@ -1,4 +1,4 @@
-package com.sonalsatpute.stringcalculator
+package com.sonalsatpute.stringcalculator.fp
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.fail
