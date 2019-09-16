@@ -1,25 +1,20 @@
 package com.sonalsatpute.stringcalculator.fp
 
-sealed class Result<out F, out S>
+sealed class Result<out F, out T> {
 
-inline fun <F, S> Result<F, S>.onEachSuccess(f: (S) -> Unit): Result<F, S> {
-    when (this) {
-        is Success<S> -> f(this.value)
-    }
-
-    return this
+    abstract fun <S> mapSuccess(f: (T) -> S): Result<F, S>
 }
 
-data class Success<out S>(val value: S) : Result<Nothing, S>() {
+data class Success<out F, out T>(val value: T): Result<F, T>() {
+
+    override fun <S> mapSuccess(f: (T) -> S): Result<F, S> = Success(f(this.value))
+
     override fun toString() = "Success($value)"
 }
 
-data class Failure<out F>(val reason: F) : Result<F, Nothing>() {
+data class Failure<out F, out T>(val reason: F) : Result<F, T>() {
+
+    override fun <S> mapSuccess(f: (T) -> S): Result<F, S> = Failure(this.reason)
+
     override fun toString() = "Failure($reason)"
 }
-
-inline fun <F, S> Result<F, S>.orElse(f: (F) -> S): S =
-    when (this) {
-        is Success -> this.value
-        is Failure -> f(this.reason)
-    }
