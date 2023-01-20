@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class StringCalculatorTests {
     fun add(numbers: String): Int {
-        if(numbers.isEmpty()){
+        if (numbers.isEmpty()) {
             return 0
         }
         return numbers.toInt()
@@ -15,8 +15,14 @@ class StringCalculatorTests {
     fun `should return 0 with an empty string`() {
         assertEquals(0, add(""))
     }
+
     @Test
     fun `should return 1 for 1`() {
         assertEquals(1, add("1"))
+    }
+
+    @Test
+    fun `should return 2 for 2`() {
+        assertEquals(2, add("2"))
     }
 }
