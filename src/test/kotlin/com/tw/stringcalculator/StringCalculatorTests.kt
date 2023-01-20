@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class StringCalculatorTests {
     fun add(numbers: String): Int {
-        return if (numbers.isEmpty()) return 0 else numbers.split(',').sumBy { it.toInt() }
+        return if (numbers.isEmpty()) return 0 else numbers.split(',', '\n').sumBy { it.toInt() }
     }
 
     @Test
@@ -37,4 +37,10 @@ class StringCalculatorTests {
     fun `should return 11 for 10,1`() {
         assertEquals(11, add("10,1"))
     }
+
+    @Test
+    fun `should return 6 for 1newLine2,3`() {
+        assertEquals(6, add("1\n2,3"))
+    }
+
 }
