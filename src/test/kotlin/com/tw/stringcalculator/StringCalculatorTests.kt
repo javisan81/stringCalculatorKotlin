@@ -8,7 +8,7 @@ class StringCalculatorTests {
         if (numbers.startsWith("//;")) {
             return 3
         }
-        return if (numbers.isEmpty()) return 0 else numbers.split(',', '\n').sumBy { it.toInt() }
+        return if (numbers.isEmpty()) 0 else numbers.split(',', '\n').sumBy { it.toInt() }
     }
 
     @Test
