@@ -32,4 +32,9 @@ class StringCalculatorTests {
     fun `should return 4 for 1,3`() {
         assertEquals(4, add("1,3"))
     }
+
+    @Test
+    fun `should return 11 for 10,1`() {
+        assertEquals(11, add("10,1"))
+    }
 }
