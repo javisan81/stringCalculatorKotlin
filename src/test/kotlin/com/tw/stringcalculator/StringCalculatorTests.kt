@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test
 class StringCalculatorTests {
     fun add(numbers: String): Int {
         if (numbers.startsWith("//;")) {
-            if(numbers.endsWith("2;2"))
-                return 4
-            return 3
+            return if (numbers.isEmpty()) 0 else numbers.replace("//;\n", "").split(';', '\n').sumBy { it.toInt() }
         }
         return if (numbers.isEmpty()) 0 else numbers.split(',', '\n').sumBy { it.toInt() }
     }
