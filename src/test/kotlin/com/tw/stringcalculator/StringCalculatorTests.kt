@@ -5,13 +5,10 @@ import org.junit.jupiter.api.Test
 
 class StringCalculatorTests {
     fun add(input: String): Int {
-        if (input.startsWith("//;")) {
-            val numbers = input.replace("//;\n", "")
-            return sum(numbers, ';')
-        }
-        if (input.startsWith("//|")) {
-            val numbers = input.replace("//|\n", "")
-            return sum(numbers, '|')
+        if (input.startsWith("//")) {
+            val delimiter = input[2];
+            val numbers = input.replace("//"+delimiter+"\n", "")
+            return sum(numbers, delimiter)
         }
         return sum(input, ',')
     }
