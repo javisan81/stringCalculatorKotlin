@@ -4,12 +4,15 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class StringCalculatorTests {
-    fun add(numbers: String): Int {
-        if (numbers.startsWith("//;")) {
-            return if (numbers.isEmpty()) 0 else numbers.replace("//;\n", "").split(';', '\n').sumBy { it.toInt() }
+    fun add(input: String): Int {
+        if (input.startsWith("//;")) {
+            val numbers = input.replace("//;\n", "")
+            return if (numbers.isEmpty()) 0 else splitAndSum(numbers)
         }
-        return if (numbers.isEmpty()) 0 else numbers.split(',', '\n').sumBy { it.toInt() }
+        return if (input.isEmpty()) 0 else input.split(',', '\n').sumBy { it.toInt() }
     }
+
+    private fun splitAndSum(numbers: String) = numbers.split(';', '\n').sumBy { it.toInt() }
 
     @Test
     fun `should return 0 with an empty string`() {
@@ -54,5 +57,10 @@ class StringCalculatorTests {
     @Test
     fun `should return 4 when semicolon is the delimiter and having two 2s`() {
         assertEquals(4, add("//;\n2;2"))
+    }
+
+    @Test
+    fun `should return 0 when semicolon is the delimiter and we dont have anything else`() {
+        assertEquals(0, add("//;\n"))
     }
 }
