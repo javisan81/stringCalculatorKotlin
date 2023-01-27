@@ -9,6 +9,10 @@ class StringCalculatorTests {
             val numbers = input.replace("//;\n", "")
             return sum(numbers, ';')
         }
+        if (input.startsWith("//|")) {
+            val numbers = input.replace("//|\n", "")
+            return sum(numbers, '|')
+        }
         return sum(input, ',')
     }
 
@@ -63,5 +67,11 @@ class StringCalculatorTests {
     @Test
     fun `should return 0 when semicolon is the delimiter and we dont have anything else`() {
         assertEquals(0, add("//;\n"))
+    }
+
+
+    @Test
+    fun `it should return 4 when inputing 2 | 2`() {
+        assertEquals(4, add("//|\n2|2"))
     }
 }
