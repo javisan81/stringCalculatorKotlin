@@ -7,12 +7,13 @@ class StringCalculatorTests {
     fun add(input: String): Int {
         if (input.startsWith("//;")) {
             val numbers = input.replace("//;\n", "")
-            return if (numbers.isEmpty()) 0 else splitAndSum(numbers)
+            return sum(numbers, ';')
         }
-        return if (input.isEmpty()) 0 else input.split(',', '\n').sumBy { it.toInt() }
+        return sum(input, ',')
     }
 
-    private fun splitAndSum(numbers: String) = numbers.split(';', '\n').sumBy { it.toInt() }
+    private fun sum(input: String, delimiter: Char) =
+        if (input.isEmpty()) 0 else input.split(delimiter, '\n').sumBy { it.toInt() }
 
     @Test
     fun `should return 0 with an empty string`() {
